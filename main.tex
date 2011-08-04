@@ -1,0 +1,58 @@
+% entrée des dossiers
+\makeatletter
+\def\input@path{{tex/latex/}}
+\makeatother
+
+
+\documentclass[a4paper,11pt]{report}
+
+% ==================================================================
+%               DEBUT TITLE PAGE 
+% ==================================================================
+
+%===================================
+%   debut extensions necessaires
+%===================================
+
+%\usepackage{xcolor}
+\usepackage{graphicx}
+%\usepackage{ifthen}
+%\usepackage{pstricks}
+
+%===================================
+%   Fin extensions necessaires
+%===================================
+
+% Appel de l'extension de la pagedegardeUAG
+\usepackage[memoire]{pagedegardeUAG-v2}
+
+
+%===================================
+%  Debut renseignements a completer
+%===================================
+
+
+\title{Un titre long, pas encore assez long, toujours pas assez long. Il commence \`a \^etre sacr\'ement long et ce sera bient\^ot suffisant}
+
+\annee{2009-2010}
+
+
+%===================================
+%  Fin renseignements a completer
+%===================================
+
+
+% ==================================================================
+%               FIN TITLE PAGE 
+% ==================================================================
+\usepackage{layout}
+ \begin{document}
+\layout
+\author{M. C\'edrick}{Copol}{cedrick.copol@gmail.com}
+
+\Encadrant{M. Jacques}{Laminie}{Professeur des Universit\'es}%il travaille \`a l'UAG}
+\Encadrant{M. Simon}{Lopez}{Ing\'enieur-Chercheur au BRGM}
+
+  \maketitle
+ \end{document}
+

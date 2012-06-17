@@ -1,58 +1,45 @@
-% entrée des dossiers
-\makeatletter
-\def\input@path{{tex/latex/}}
-\makeatother
-
-
-\documentclass[a4paper,11pt]{report}
-
-% ==================================================================
-%               DEBUT TITLE PAGE 
-% ==================================================================
-
-%===================================
-%   debut extensions necessaires
-%===================================
-
-%\usepackage{xcolor}
+\documentclass[a4paper]{article}
+%\documentclass{scrartcl}
 \usepackage{graphicx}
-%\usepackage{ifthen}
-%\usepackage{pstricks}
-
-%===================================
-%   Fin extensions necessaires
-%===================================
-
-% Appel de l'extension de la pagedegardeUAG
-\usepackage[memoire]{pagedegardeUAG-v2}
-
-
-%===================================
-%  Debut renseignements a completer
-%===================================
-
-
-\title{Un titre long, pas encore assez long, toujours pas assez long. Il commence \`a \^etre sacr\'ement long et ce sera bient\^ot suffisant}
-
-\annee{2009-2010}
-
-
-%===================================
-%  Fin renseignements a completer
-%===================================
-
+\usepackage{ifthen}
+\usepackage{xcolor}
+\usepackage{lmodern}
 
 % ==================================================================
-%               FIN TITLE PAGE 
+%               TITLE PAGE version 2012/06/07
+% \FiligraneXpos
+%        419    \documentclass[a4paper]{article}
+    \usepackage[memoire]{uag_style/pagedegardeUAG}
+    \renewcommand{\FiligraneXpos}{419}%442 pour scrreprt %447 pour scrartcl
+    \renewcommand{\raiseFiligrane}{0.1ex} % raise = réhausser
+
+    \annee{201*-201*}
+    \Imawoman
+    \author{M. John}{Do}{John.Do@adresse.com}
+
+    \Encadrant{M. Bidule}{Dupont}{Professeur des Universit\'es}
+    \Encadrant{M. Machin}{Machicouli}{Profession}
+    \title{Un titre long, pas encore assez long, toujours pas assez long. Il commence \`a \^etre sacr\'ement long et ce sera bient\^ot suffisant}
+
+%               FIN TITLE PAGE version 2012/06/07
 % ==================================================================
-\usepackage{layout}
- \begin{document}
-\layout
-\author{M. C\'edrick}{Copol}{cedrick.copol@gmail.com}
+%\usepackage{layout}
 
-\Encadrant{M. Jacques}{Laminie}{Professeur des Universit\'es}%il travaille \`a l'UAG}
-\Encadrant{M. Simon}{Lopez}{Ing\'enieur-Chercheur au BRGM}
+\begin{document}
+\maketitle
+\end{document}
 
-  \maketitle
- \end{document}
+% Problèmes rencontrés
 
+% Le début du mot Mémoire ou Travaux est rogné,
+   solution Vous avez oublié de mettre l'option a4paper a documentclass.
+   exple : \documentclass[a4paper]{article}
+   Si ça ne fonctionne pas et que vous utiliseé MikTeX voir la solution dans la
+   documentation pagedegardeUAG-doc.pdf
+
+Prendre en main la page de garde
+
+Vous avez la possibilité de modifier le position du filigrane de manière aisée.
+Il suffit pour cela de redéfinir certaines commandes.
+    \nameXpos et/ou \nameYpos
+name peut être 'entete', 'Filigrane' 

@@ -1,4 +1,6 @@
 % Auteur Cedrick Copol
+% version du 17 juin 2012
+% version du 07 juin 2012
 % version du 16 juin 2010
 % eleve de M1 Mathematiques a l'universite des Antilles et de la Guyane (Guadeloupe)
 % Ce .sty a ete cree pour les pages de garde de M1 (T.E.R.) et M2 (memoire).
@@ -6,60 +8,68 @@
 %                      Remarques
 % 1)  Le resultat attendu ne sera obtenu que si on met en option a4paper
 
-% 2)  Quelques extension necessaire
-%	* xcolor
+% 2)  Quelques extensions necessaires
 %	* graphicx
-%	* pstricks
-%	* pst-all
-%	* pst-grad
-%	* ifpdf
+%       * ifthen
+%       * color
+%       * fontenc avec l'option T1
+%       * lmodern
 
-% 3)  Les commandes a completer : elles ont toutes un nom suffisament explicite
+% 3)  Les commandes a completees :(elles ont toutes un nom suffisament explicite)
 
-%	* \couriel{votreadress@trucmuche.chose}
-%	* \author{Pr\'enom NOM}
-%	* \annee{2008-2009}
-%	* \ProfDeTer{Mme, Mlle, M. Prof encadrant}
+%	* \author{Pr\'enom}{Nom}{courriel} % attention seule l'initiale de votre nom doit \^etre en capital 
+%	* \annee{****-****}  % exemple \annee{2008-2009}
+%	* \Encadrant{Pr\'enom}{Nom}{Profession} % Vous pouvez en mettre plusieurs
 %	* \title{ }
+%       * \Imawoman % Seulement si vous \^etes une femme
 
-% 4)    Déclaration des options 
+% 4)    D\'eclaration des options 
 %        \usepackage[ter]{PageDeGarde} si c'est un T.E.R.
 %        \usepackage[memoire]{PageDeGarde} si c'est un Memoire
+%        \usepackage[rapport]{PageDeGarde} si c'est un rapport de stage
 
 
 
-\ProvidesPackage{pagedegardeUAG}[2010/11/30 page de garde de l'Universit\'e des Antilles Guyane campus de Fouillole, Guadeloupe]
-\RequirePackage{color}
+\ProvidesPackage{pagedegardeUAG}[2012/06/07 page de garde de l'Universit\'e des Antilles Guyane campus de Fouillole, Guadeloupe]
 \RequirePackage{graphicx}
-%\RequirePackage{pstricks}
-%\RequirePackage{ifpdf}
-%\RequirePackage{pst-grad}
+\RequirePackage{xcolor}
 \RequirePackage{ifthen}
 
-% astuces lmdern pour avoir les petites capites grasses en utilisant lmodern
-%\rmfamily
-%\DeclareFontShape{T1}{lmr}{b}{sc}{<->ssub*cmr/bx/sc}{}
-%\DeclareFontShape{T1}{lmr}{bx}{sc}{<->ssub*cmr/bx/sc}{}
-% finastuce
+% astuces lmodern pour avoir les petites capites grasses en utilisant lmodern
+%http://www.math.jussieu.fr/~mpg/latex/tips#lmsub
+
+%\@ifpackageloaded{<name>}{<true>}{<false>}
+%\@ifpackagewith{<name>}{<option-list>}{<true>}{<false>}
+\@ifpackageloaded{lmodern}
+{%
+\RequirePackage[T1]{fontenc}
+\rmfamily
+\DeclareFontShape{T1}{lmr}{b}{sc}{<->ssub*cmr/bx/sc}{}
+\DeclareFontShape{T1}{lmr}{bx}{sc}{<->ssub*cmr/bx/sc}{}
+}%
+{%
+% false
+}
+% fin astuce
+%\RequirePackage[pdftitle={title}]{hyperref}
 
 
 %################################################################
 %               Les commandes utiles				#
 %################################################################
 \newcommand{\taille}[2]{\fontfamily{phv}\fontseries{b}\fontsize{#1cm}{#2cm}\selectfont}
-%\def\hpos{20}%15
-\def\hpos{-80}
-\def\vpos{30}%
-\def\entetehpos{-49}
-\def\entetevpos{540}
-\def\CadreBleuvpos{-185}%-30
-%defaut pour article \hpos{36}\vpos{30}\entetehpos{-49}\entetevpos{540}\CadreBleuhpos{445}\CadreBleuvpos{-185}
+\def\Xpos{-80}
+\def\Ypos{30}%
+\def\enteteXpos{-49}
+\def\enteteYpos{540}
+\def\FiligraneYpos{-185}%-30
+%defaut pour article \Xpos{36}\Ypos{30}\enteteXpos{-49}\enteteYpos{540}\FiligraneXpos{445}\FiligraneYpos{-185}
 
 %################################################################
 %                 Commandes utilisateurs			#
 %################################################################
 
-\makeatletter
+%\makeatletter
 % le signe @ ne peux etre utilise qu'entre \makeatletter et \makeatother
 % L'astuce est d'avoir une commande initialisee au vide et qui sera completer si elle est appelee
 % \@couriel me permet d'utiliser le meme nom que la commande \couriel qui sera appele dans le .tex.
@@ -75,7 +85,6 @@
 %
 
 
-% entree \author{Prenom}{Nom}{Fonction}
 \renewcommand{\author}[3]{%
   \newcommand{\Autp}{\textbf{\large #1}}%
   \newcommand{\Autn}{\textbf{\large\textsc{#2}}}%
@@ -87,12 +96,15 @@
 \renewcommand{\title}[1]{%
                      \titleORIG{{\Huge \bf #1}}%
 } %titre en gros et en gras
+\newboolean{woman}
+\setboolean{woman}{false}
+\newcommand{\Imawoman}{\setboolean{woman}{true}}
+\newcommand{\authorcomment}{Pr\'esent\'e}
+%\makeatother
 
-\makeatother
-
-%%%%%%%%%%%%%%%%%%%%%  ENCADRANTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcounter{nenc}
-\setcounter{nenc}{0}
+%%%%%%%%%%%%%%%%%%%%%  EXAMINATEURS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{nexa}
+\setcounter{nexa}{0}
 
 %% compteur temp
 \newcounter{y}
@@ -103,22 +115,22 @@
 % Je souhaite faire en sorte que je puisse entrer plusieurs encadrants.
 
 
-\newcommand{\Lenc}[1]{%
-~~~{\csname ENCp#1\endcsname} & {\csname ENCn#1\endcsname} & \testLbox{{\csname ENCq#1\endcsname}} \\%
+\newcommand{\Lexa}[1]{%
+~~~{\csname EXAp#1\endcsname} & {\csname EXAn#1\endcsname} & \testLbox{{\csname EXAq#1\endcsname}} \\%
 }
 
 
-\newcommand{\newEnc}[4]{%
-\expandafter\def\csname ENCp#1\endcsname{\textbf{{\large #2}}}%
-\expandafter\def\csname ENCn#1\endcsname{\textbf{{\large\textsc{#3}}}}%
-\expandafter\def\csname ENCq#1\endcsname{#4}%
+\newcommand{\newExam}[4]{%
+\expandafter\def\csname EXAp#1\endcsname{\textbf{{\large #2}}}%
+\expandafter\def\csname EXAn#1\endcsname{\textbf{{\large\textsc{#3}}}}%
+\expandafter\def\csname EXAq#1\endcsname{#4}%
 }
 
 %Prenom Nom Qualite d'un examinateur
 \newcommand{\Encadrant}[3]{%
-\stepcounter{nenc}%
-\newEnc{\roman{nenc}}{#1}{#2}{#3}%
-\ifthenelse{\value{nenc}>1}{%
+\stepcounter{nexa}%
+\newExam{\roman{nexa}}{#1}{#2}{#3}%
+\ifthenelse{\value{nexa}>1}{%
 \renewcommand{\Tencadrant}{Encadrants}%
 }{}%
 }
@@ -135,22 +147,23 @@
 	   \ifthenelse{\largeurboite<\largeurmax}{\usebox{\boite}}{\parbox{.48\textwidth}{#1}}%
            }
 
-\makeatletter
+%\makeatletter
 \renewcommand{\@Encadrant}{%
-\begin{tabular}{ c  @{\protect\hspace{0.3cm}} c @{\protect\hspace{0.5cm}}  l }
+\ifthenelse{\boolean{woman}}{\renewcommand{\authorcomment}{Pr\'esent\'ee}}{}
+\begin{tabular}{ r  @{\protect\hspace{0.3cm}} r @{\protect\hspace{0.5cm}}  l }
 %
 %% auteur
-\multicolumn{3}{l}{Pr\'esent\'e(e) par~:}\\
+\multicolumn{3}{l}{\authorcomment{} par~:}\\
 ~~~\Autp  & \Autn & \testLbox{\Autq}\\
 %% encadrant(s)
 \multicolumn{3}{l}{\Tencadrant~:}\\
-\Lenc{i}
-\whiledo{{\value{y}<\value{nenc}}}{\stepcounter{y}\Lenc{\roman{y}}}%
+\Lexa{i}
+\whiledo{{\value{y}<\value{nexa}}}{\stepcounter{y}\Lexa{\roman{y}}}%
 %direct(eur)(rice)
 % ~~~\ADVp  & \ADVn&\ADVq~~(\TDir)\\
 \end{tabular}%
 }%
-\makeatother
+%\makeatother
 
 
 
@@ -197,8 +210,7 @@
   \end{tabular}%
 		    }
 
-\makeatletter
-
+%\makeatletter
   \newcommand{\identification}{%
     {\fontsize{12pt}{14.5pt}\selectfont
 		  \parbox{1.3\textwidth}{%
@@ -211,35 +223,11 @@
 			  \end{flushright}}%
    }%
   }%
-\makeatother
+%\makeatother
 
-%################################################################################
-%		Commandes si compilation faite avec PDFLaTeX			#
-%################################################################################
+\newcommand{\logoUAG}{\includegraphics[scale=.6]{uag_style/nouveau_logo_uag}}
 
-
-% Je teste si la compilation se fait en utilisant PDFLaTeX
-%\ifpdf % oui
-
-	\newcommand{\CadreBleu}[1]{#1}
-
-%\else % non
-
-%	\newcommand{\CadreBleu}[1]{%
-%		\psframe[fillstyle=gradient,gradangle=45](0,\hbleu)(30.7,-1)%
-%		\raisebox{-1.5em}{#1}%
-%				      }
-%\fi
-	\newcommand{\logoUAG}{\includegraphics[scale=.6]{nouveau_logo_uag}}
-
-%################################################################################
-%		Fin commandes si compilation faite avec PDFLaTeX		#
-%################################################################################
-
-
-%\definecolor{lightgray}{gray}{0.8}
-\definecolor{lightgray}{gray}{0.6}
-
+\definecolor{lightgray}{gray}{0.8}
 
 % Je modifie la commande \maketitle pour qu'elle soit de la forme souhaitee
 
@@ -266,11 +254,11 @@
 %
 		\begin{picture}(510,548)%500,548
 	%placement de l'entete (la partie comprenant le logo, le nom de la faculté)
-			\put(\entetehpos,\entetevpos){\entete}%
+			\put(\enteteXpos,\enteteYpos){\entete}%
 	%placement de la partie identifiant l'auteur, le titre, le prof encadrant
-			\put(\hpos,\vpos){\identification}%
-	%placement du cadre bleu contenant TER ou Memoire
-			\put(\CadreBleuhpos,\CadreBleuvpos){\motcadrebleu}%
+			\put(\Xpos,\Ypos){\identification}%
+	%placement du filigrane contenant TER ou Memoire
+			\put(\FiligraneXpos,\FiligraneYpos){\Filigrane}%
 		\end{picture}
 	\end{titlepage}
 }% accolade de \selectfont et pour s'assurer que l'initialisation des longueurs soit bien locale
@@ -286,67 +274,58 @@
 % Déclaration des options 
 %        \usepackage[ter]{PageDeGarde} si c'est un T.E.R.
 %        \usepackage[memoire]{PageDeGarde} si c'est un Memoire
+%        \usepackage[rapport]{PageDeGarde} si c'est un Rapport de Stage
 
 
 % Declaration de l'option ter pour mon extension
 	% Option ter affiche Travail d'Enseignement et de Recherche
 \DeclareOption{ter}{%
-  \def\raiseTER{-0.2ex}
-  \def\hbleu{1.7}
-  \def\CadreBleuhpos{440}%436
+  \def\raiseFiligrane{-0.2ex}
+  \def\FiligraneXpos{440}%436
  %
-  \newcommand{\motcadrebleu}{%
+  \newcommand{\Filigrane}{%
     \rotatebox{90}{%
-     \CadreBleu{%
       \resizebox{\paperheight}{!}{%
-        \raisebox{\raiseTER}{%
+        \raisebox{\raiseFiligrane}{%
           \color{lightgray}\hspace*{2pt} \bf {\huge T}ravaux d'{\huge E}tudes et de {\huge R}echerches%
 			    }%
 				 }%
 		  }%
 		  }%
-		  }%
 		    }
-
 
 % Declaration de l'option ter pour mon extension
 	% Option ter affiche Travail d'Enseignement et de Recherche
 \DeclareOption{rapport}{%
-  \def\raiseTER{-0.2ex}
-  \def\hbleu{1.7}
-  \def\CadreBleuhpos{435}%436
+  \def\raiseFiligrane{-0.2ex}
+  \def\FiligraneXpos{435}%436
  %
-  \newcommand{\motcadrebleu}{%
+  \newcommand{\Filigrane}{%
     \rotatebox{90}{%
-     \CadreBleu{%
       \resizebox{\paperheight}{61pt}{%
-        \raisebox{\raiseTER}{%
+        \raisebox{\raiseFiligrane}{%
           \color{lightgray}\hspace*{2pt} \bf {\huge R}apport de {\huge S}tage%
 			    }%
 				 }%
-		  }%
 		  }%
 		  }%
 		    }
 
 
 \DeclareOption{memoire}{%
-  \def\raiseTER{-0.2ex}
-  \def\hbleu{1.5}
-  \def\CadreBleuhpos{415}%
-% astuce: \rule{0pt}{1em} trace un trait verticale de largeur 0pt dc invisible et de longueur 1em ceci me permet d'imposer une hauteur de 1em a mon cadre bleu
-  \newcommand{\motcadrebleu}{%
+  \def\raiseFiligrane{-0.2ex}
+  \def\FiligraneXpos{415}%
+% astuce: \rule{0pt}{1em} trace un trait verticale de largeur 0pt dc invisible et de longueur 1em ceci me permet d'imposer une hauteur de 1em a la boite contenant le filigrane
+  \newcommand{\Filigrane}{%
     \rotatebox{90}{%
-      \CadreBleu{%
 	\resizebox{\paperheight}{84pt}{%
 	  \rule{0pt}{1em}% voir astuce plus haut
-	    \raisebox{\raiseTER}{
+	    \raisebox{\raiseFiligrane}{
 	      \color{lightgray}\hspace*{-2pt}M\'emoire%
 				}%
 				      }%
-		    }% fin commande \CadreBleu
 		  }% fin commande \rotatebox
-		    }% fin commande \motcadrebleu
+		    }% fin commande \Filigrane
 		   }% fin option memoire
 
 \ProcessOptions% NE PAS OUBLIER de mettre \ProcessOptions a la fin des declarations des options sinon on a des messages d'erreurs

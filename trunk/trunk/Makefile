@@ -8,8 +8,8 @@
 
 DOC = main
 #VERSION = $$(sed -n 's/\\ProvidesPackage{pagedegardeUAG}\[*\]}/\1/p' tex/latex/pagedegareUAG.sty | sed 's/ //g')
-VERSION = `grep ProvidesPackage tex/latex/pagedegardeUAG.sty | cut -d "[" -f2 | cut -d " " -f1 | sed 's./.-.g'`
-COMPIL = latex # put latex or pdflatex depending on what you prefer 
+VERSION = `grep ProvidesPackage uag_style/pagedegardeUAG.sty | cut -d "[" -f2 | cut -d " " -f1 | sed 's./.-.g'`
+COMPIL = pdflatex # put latex or pdflatex depending on what you prefer 
 
   #*  all : généralement la première du fichier, elle regroupe dans ces dépendances l'ensemble des exécutables à produire.
   #* clean : elle permet de supprimer tout les fichiers intermédiaires.

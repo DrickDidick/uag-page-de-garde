@@ -22,6 +22,7 @@
 %	* \Encadrant{Pr\'enom}{Nom}{Profession} % Vous pouvez en mettre plusieurs
 %	* \title{ }
 %       * \Imawoman % Seulement si vous \^etes une femme
+%       * \Imaman % Seulement si vous \^etes un homme
 
 % 4)    D\'eclaration des options 
 %        \usepackage[ter]{PageDeGarde} si c'est un T.E.R.
@@ -99,7 +100,10 @@
 \newboolean{woman}
 \setboolean{woman}{false}
 \newcommand{\Imawoman}{\setboolean{woman}{true}}
-\newcommand{\authorcomment}{Pr\'esent\'e}
+\newboolean{man}
+\setboolean{man}{false}
+\newcommand{\Imaman}{\setboolean{man}{true}}
+\newcommand{\authorcomment}{Pr\'esent\'e(e)}
 %\makeatother
 
 %%%%%%%%%%%%%%%%%%%%%  EXAMINATEURS %%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -149,7 +153,10 @@
 
 %\makeatletter
 \renewcommand{\@Encadrant}{%
-\ifthenelse{\boolean{woman}}{\renewcommand{\authorcomment}{Pr\'esent\'ee}}{}
+\ifthenelse{\boolean{woman}}{\renewcommand{\authorcomment}{Pr\'esent\'ee}}%
+	{%else
+	\ifthenelse{\boolean{man}}{\renewcommand{\authorcomment}{Pr\'esent\'e}}{}%
+	}
 \begin{tabular}{ r  @{\protect\hspace{0.3cm}} r @{\protect\hspace{0.5cm}}  l }
 %
 %% auteur

@@ -23,33 +23,29 @@
 Pour faire la page de garde vous trouverez les fichiers suivants :
 
 \begin{itemize}
- \item 	apercu.tex
  \item	PagedegardeUAG-doc.pdf \og la documentation que vous lisez en ce moment \fg{}
  \item	nouveau\_logo\_uag.eps
+ \item	nouveau\_logo\_uag.png
  \item	pagedegardeUAG.sty
- \item	apercuTer.pdf \og r\'esultat que vous devez obtenir pour un TER \fg
- \item	apercuMemoire.pdf \og r\'esultat que vous devez obtenir pour un M\'emoire \fg
 \end{itemize}
 
 \section{Mode d'emploi }
 
 \begin{enumerate}
- \item  Placez dans votre dossier de travail, celui contenant votre .tex, les fichiers
-	nouveau\_logo\_uag.eps
-	pagedegardeUAG.sty
-
+ \item  Placez dans votre dossier de travail, celui contenant votre .tex, le dossier uag\_style
 
  \item  Editez votre .tex
 
   \item Pr\'eciser au besoin a4paper , dans \textbackslash documentclass[a4paper]\{\ldots\}
 
  \item  Pour charger l'extention \emph{pagedegardeUAG} taper dans le pr\'eambule
-\mbox{\textbackslash usepackage[X]\{pagedegardeUAG\}}
-	o\`u X prend l'une de ces 2 valeurs en fonction de ce que vous pr\'eparer \LOL{bien-sur}:
+\mbox{\textbackslash usepackage[X]\{uag\_style/pagedegardeUAG\}}
+	o\`u X prend l'une de ces 3 valeurs en fonction de ce que vous pr\'eparer \LOL{bien-sur}:
 		\begin{itemize}
-		    \item ter
-		    \item memoire
-		\end{itemize}.
+		    \item \textbf{ter};
+		    \item \textbf{memoire};
+		    \item \textbf{rapport}.
+		\end{itemize}
 
 Quoi de plus parlant qu'un exemple ? \LOL{RIEN}
 
@@ -71,15 +67,13 @@ Quoi de plus parlant qu'un exemple ? \LOL{RIEN}
 	\begin{itemize}
 		\item \mbox{\textbackslash usepackage\{xcolor\}}
 		\item \mbox{\textbackslash usepackage\{graphicx\}}
-		\item \mbox{\textbackslash usepackage\{pstricks,pst-grad\}}
 	\end{itemize}
  \item  Et enfin renseignez les commandes suivantes :
 	\begin{itemize}
-	\item \mbox{\textbackslash email\{votreadress@trucmuche.chose\}}
-		\item \mbox{\textbackslash author\{Pr\'enom NOM\}}
+		\item \mbox{\textbackslash title\{ \}}
+		\item \mbox{\textbackslash author\{Pr\'enom\}\{Nom\}\{votreadress@trucmuche.chose\}}
 		\item \mbox{\textbackslash annee\{2008-2009\}}
 		\item \mbox{\textbackslash Encadrant\{Mme, Mlle, M. Prof encadrant\}}
-		\item \mbox{\textbackslash title\{ \}}
 	\end{itemize}
 
  \item  Mettre la commande \mbox{\textbackslash maketitle} apr\`es \mbox{\textbackslash begin\{document\}}.
@@ -92,6 +86,18 @@ Quoi de plus parlant qu'un exemple ? \LOL{RIEN}
 			BONNE CHANCE !!
 \end{enumerate}
 
+\section{Les commandes}
+
+\begin{tabular}{|p{2.5cm}|p{9cm}|}
+\hline
+  \bf \textbackslash Imawoman \textbackslash Imaman & Renseigner votre sexe. Le but est de mettre
+  \textbf{Pr\'esent\'e}, ou \textbf{Pr\'esent\'ee}. Si ni aucune de ces commandes n'est mise alors on pourra lire
+  \textbf{Pr\'esent\'e(e)}.\\\hline
+  \bf \textbackslash title     & Pour le titre\\\hline
+  \bf \textbackslash author    & \textbf{ \textbackslash author}\{Pr\'enom\}\{Nom\}\{courriel\} \\\hline
+  \bf \textbackslash Encadrant & \textbf{ \textbackslash Encadrant}\{Pr\'enom\}\{Nom\}\{Profession\} \\\hline
+\end{tabular}
+
 \section{R\'esolution de probl\`eme}
 \subsection{Windows mon cher windows}
 
@@ -103,7 +109,7 @@ Cliquez sur le menu D\'emarrer puis sur \og tous les programmes\fg{}. Cherchez M
 Previewer, Settings et Update. Cliquez sur \og Settings \fg{} la fen\^etre \ref{image} s'ouvre :
 
 
-\begin{figure}[h]
+\begin{figure}%[h]
 \hspace*{-2cm}  \includegraphics{miktex_option.png}
 \caption{MiKTEX Settings}\label{image}
 \end{figure}
@@ -117,19 +123,37 @@ Previewer, Settings et Update. Cliquez sur \og Settings \fg{} la fen\^etre \ref{
 
 \subsection{Probl\`emes possibles}
 
-Cette section est  relatif aux probl\`emes rencontr\'ees avec l'ancienne version (celle d'avril 2009) il est fort possible
+Cette section est  relative aux probl\`emes rencontr\'ees avec l'ancienne version (celle d'avril 2009) il est possible
  que ces probl\`emes aient disparus.\\
 	Le cadre bleu n'est pas adjacent au bord droit de la feuille
 
 \begin{itemize}
  \item  enlever l'option twoside dans \textbackslash documentclass.
- \item probl\`eme du aux extensions \emph{geometry}, \emph{fullpage} enlever les s'il ne sont pas utilis\'e.
+ \item probl\`eme du aux extensions \emph{geometry}, \emph{fullpage} enlever les s'il ne sont pas utilis\'es.
  \item  Il peut \^etre n\'ecessaire d'\'ecrire\\ 
 			\mbox{\textbackslash usepackage\{amsmath,amsfonts,amssymb,amsthm\}}
 		 au lieu de \mbox{\textbackslash usepackage\{amsmath\}} \mbox{\textbackslash usepackage\{amsfonts\}} \mbox{\textbackslash usepackage\{amssymb\}} \mbox{\textbackslash usepackage\{amsthm\}}.
 \end{itemize}
 
-Si malgr\'e mes explications rien ne marche modifier directement le fichier apercu.tex .
+Si malgr\'e mes explications rien ne marche modifier directement le fichier main.tex .
 Ainsi vous aurez un fichier ne contenant que la page de garde et un autre contenant votre travail, ou compiler chez un ami pour qui cela fonctionne.
+\noindent
+\begin{tabular}{lp{5cm}}
+\hline
+  Le d\'ebut du mot M\'emoire ou Travaux est rogn\'e&%
+   Vous avez oubli\'e de mettre l'option a4paper a documentclass.
+   exple : \textbackslash documentclass[a4paper]\{article\}
+   Si \c ca ne fonctionne pas et que vous utilis\'ee MikTeX voir plus haut.
+\end{tabular}
+
+% Le début du mot Mémoire ou Travaux est rogné,
+   
+
+Prendre en main la page de garde
+
+Vous avez la possibilité de modifier le position du filigrane de manière aisée.
+Il suffit pour cela de redéfinir certaines commandes.
+    \textbackslash nameXpos et/ou \textbackslash nameYpos
+name peut être 'entete', 'Filigrane' 
 
 \end{document}

@@ -15,9 +15,9 @@ COMPIL = latex # put latex or pdflatex depending on what you prefer
   #* clean : elle permet de supprimer tout les fichiers intermédiaires.
   #* mrproper : elle supprime tout ce qui peut être régénéré et permet une reconstruction complète du projet.
 
-.PHONY: all install clean mrproper
 
 all : $(DOC).pdf
+.PHONY: all install clean mrproper
 
 $(DOC).pdf: $(DOC).tex
 	while ( \
